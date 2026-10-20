@@ -1,21 +1,11 @@
 MIT License
 
-Copyright (c) 2026 M0hamedDewidar
+# Copyright and Rights Reservation
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+**Copyright © 2026 Military Technical College (MTC). All rights reserved.**
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This notice applies to the source code, documentation, protocol notes, figures, screenshots, and other materials in this repository, to the extent those materials are owned by or assigned to the Military Technical College (MTC).
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+No permission is granted by this notice to reproduce, modify, redistribute, sublicense, publish derivative works from, or commercially exploit these materials. Written authorization from the lawful copyright holder is required unless an applicable legal exception provides otherwise. Proper citation does not, by itself, grant permission to reuse the materials.
+
+This file is a rights-reservation notice, **not an open-source software license**. The repository is provided for scholarly inspection and evaluation. Before public release, the maintainers must confirm with the appropriate MTC authority that MTC is the correct rights holder and that public release of the software, reverse-engineered protocol information, figures, and screenshots is authorized. If ownership is shared or belongs to the authors or another entity, this notice must be updated to accurately identify the rights holder(s).
