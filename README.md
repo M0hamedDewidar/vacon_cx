@@ -205,7 +205,7 @@ C = \left(\sum_{b \in U} b\right) \bmod 256.
 
 This is an additive error-detection checksum, not a cryptographic integrity or authentication mechanism.
 
-**Known checksum edge case:** a logical checksum of `0x10` is transmitted as `10 10`, but the current receive parser consumes only the first byte as the checksum. The extra `10` can disrupt parsing of the next frame. This code issue remains open and should be fixed and regression-tested before relying on the parser.
+**Checksum edge case:** a logical checksum of `0x10` is transmitted as `10 10`. The receive parser now enters a dedicated state to consume the second stuffed byte, avoiding the previous frame-alignment problem. This fix has not been tested against a live drive; add regression tests for both ordinary and stuffed checksums before relying on it.
 
 ## Telemetry decoding
 
