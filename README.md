@@ -11,7 +11,6 @@
 
 - **Conference website:** [10th IUGRC / official conference portal](https://iugrc.conferences.ekb.eg/)
 - **MTC conference announcement:** [Official MTC announcement](https://www.mtc.edu.eg/mtcwebsite/ReadMore.aspx?id=141)
-- **Direct paper URL / DOI:** *Add the exact publisher or proceedings URL here when confirmed.* The uploaded manuscript did not contain a DOI or stable paper-specific URL, and this README intentionally does not invent one.
 
 ## Project overview
 
@@ -220,7 +219,7 @@ A paper statement or screenshot alone is not a replacement for the data needed t
 
 ## Citation
 
-**Research paper:** [Add the paper’s official publication link here](PAPER_URL_TO_ADD).
+**Research paper:** Reverse Engineering a Proprietary Legacy Variable Frequency Drive Protocol for Open-Source IIoT Integration
 
 **Software:** Mohamed Emad Dewidar, *Vacon CXS4 Protocol Reverse-Engineering HMI* [computer software]. GitHub repository: https://github.com/M0hamedDewidar/vacon_cx
 
