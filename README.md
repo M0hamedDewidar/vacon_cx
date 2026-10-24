@@ -115,6 +115,56 @@ At startup, the application enumerates available serial ports. Select the intend
 
 When disconnected, the application prints `OFFLINE SIMULATION` messages for outgoing byte strings. This is local logging only; it does not simulate a VFD response and is not evidence of a successful communication exchange. The telemetry display is reset to zero on disconnect; those zeros are UI reset values, not new measurements.
 
+## Drive identification and nameplate specifications
+
+Complete this section from the **actual VACON CX S4 unit used in the experiment**. Do not infer ratings from the family name or copy values from a different drive. Leave fields as `TBD` until checked against the nameplate or manufacturer documentation.
+
+### Identification
+
+| Field | Value |
+|---|---|
+| Manufacturer | VACON |
+| Product family | CX S4 |
+| Full type designation / type code | TBD |
+| Product code / ordering code | TBD |
+| Serial number | TBD (publish only if appropriate) |
+| Hardware revision | TBD |
+| Firmware / software revision | TBD |
+| Manufacturing date | TBD |
+| Nameplate photograph | To be added |
+
+### Electrical and environmental ratings
+
+| Specification | Value from tested unit |
+|---|---|
+| Rated input voltage | TBD |
+| Input phases | TBD |
+| Input frequency | TBD |
+| Rated input current | TBD |
+| Rated output voltage | TBD |
+| Rated output current | TBD |
+| Rated motor power | TBD |
+| Output frequency range | TBD |
+| Enclosure / IP rating | TBD |
+| Cooling method | TBD |
+| Ambient temperature / derating notes | TBD |
+
+### Communication and test setup
+
+| Field | Recorded value |
+|---|---|
+| Physical interface and adapter | TBD; verify electrical standard and isolation |
+| Serial baud rate in this implementation | 9600 baud |
+| Data bits / parity / stop bits | Verify against the tested setup; code currently relies on pySerial defaults |
+| Connected motor make/model | TBD |
+| Motor rated voltage/current/power/frequency | TBD |
+| Drive parameter settings relevant to control | TBD |
+| Measurement instrument(s) and calibration | TBD |
+| Test date and operating conditions | TBD |
+| Actual test-bench photograph | To be added |
+
+*These are fill-in fields, not asserted specifications. Remove or redact serial numbers and other identifiers if disclosure is not authorized.*
+
 ## Inferred frame format
 
 The outbound frame created by `build_custom_frame()` has this structure:
@@ -155,22 +205,18 @@ C = \left(\sum_{b \in U} b\right) \bmod 256.
 
 This is an additive error-detection checksum, not a cryptographic integrity or authentication mechanism.
 
-**Implementation caveat:** the transmit path byte-stuffs a checksum equal to `0x10`, but the receive parser reads only one byte after `10 03` rather than decoding a stuffed checksum pair. The receive path therefore does not fully mirror the transmitter for this edge case. A regression test and parser correction are recommended before relying on the software.
+**Checksum edge case:** a logical checksum of `0x10` is transmitted as `10 10`. The receive parser has been updated to consume the second stuffed byte after validating that edge case. Run regression tests before connecting to hardware; this edit has not been validated against a live drive.
 
-## Telemetry decoding and unresolved offsets
+## Telemetry decoding
 
-For received data, `process_valid_frame()` checks for function code `0x1C` and a de-stuffed body length of at least 34 bytes. The source then reads:
+For received data, `process_valid_frame()` checks for function code `0x1C` and a de-stuffed body length of at least 34 bytes. The released implementation reads:
 
-- Frequency: `data[8]` and `data[9]`, interpreted as a big-endian signed 16-bit value and divided by 100 to display Hz.
-- Current: `data[14]` and `data[15]`, interpreted as a big-endian unsigned 16-bit value and divided by 10 to display A.
+- **Frequency:** `data[8]` and `data[9]`, interpreted as a big-endian signed 16-bit value and divided by 100 to display Hz.
+- **Current:** `data[14]` and `data[15]`, interpreted as a big-endian unsigned 16-bit value and divided by 10 to display A.
 
-Here, `data` includes the sequence ID and function code because the parser starts collecting bytes immediately after the `10 02` header.
+Here, `data` includes the sequence ID and function code because the parser starts collecting bytes immediately after the `10 02` header. The project maintainer reports that these offsets produce correct readings on the tested unit, so this release preserves them and does not substitute offsets inferred from manuscript text or screenshots.
 
-### Important source/manuscript discrepancy
-
-The supplied manuscript and the example trace do **not** consistently support those indices. The manuscript's telemetry section identifies indices 16/17 for frequency and 20/21 for current, while an example frame printed in the same project material shows the candidate raw pairs `08 6C` and `02 48` much earlier in the de-stuffed body. Given the indexing convention in `code.py`, the example trace appears to place those pairs at indices 7–8 and 11–12 respectively.
-
-This cannot be resolved responsibly from the screenshot alone. Before describing the offsets as validated, compare the original machine-readable capture with the exact released source, confirm whether each index includes the sequence and function bytes, and correlate several telemetry frames with independent measurements. **Do not silently change the code or paper to force agreement.** The current source is supplied unchanged from the provided snapshot, and its telemetry mapping should be treated as unverified until that work is completed.
+For independent reproducibility, record the exact drive model/firmware, archive machine-readable captures where publication is authorized, and compare readings across several operating points with an independent instrument. This README documents the current tested implementation; it is not a claim that the same offsets apply to every VACON model or firmware.
 
 ## Command interface
 
@@ -233,7 +279,7 @@ The MTC ownership statement is included as requested by the project team; before
 
 - [ ] Replace the direct paper-link placeholder with the stable official paper URL or DOI.
 - [ ] Obtain written institutional authorization for public release and confirm the copyright holder.
-- [ ] Reconcile telemetry offsets against raw captures, source code, and independent measurements.
-- [ ] Fix and test stuffed-checksum reception and concurrent serial writes before describing the program as robust.
+- [ ] Archive raw captures and document the independent measurement method for the telemetry offsets (the current code offsets are intentionally preserved).
+- [ ] Run parser regression tests, including stuffed-checksum reception and concurrent serial writes, before describing the program as robust.
 - [ ] Include the passive sniffer and machine-readable traces if they are approved for release.
 - [ ] Add an original, unmodified hardware test-bench photograph only if it accurately documents the actual setup and can be published.
