@@ -1,29 +1,19 @@
 cff-version: 1.2.0
 message: >-
-  If you use this software or describe its reverse-engineering methodology in
-  academic work, cite the associated paper and this repository. Replace the
-  repository URL and paper URL once the official records are available.
-title: "Reverse Engineering a Proprietary Legacy Variable Frequency Drive Protocol for Open-Source IIoT Integration"
+  If you use this software in academic work, cite this software record.
+title: "Vacon CXS4 Protocol Reverse-Engineering HMI"
 version: 1.0.0
 repository-code: https://github.com/M0hamedDewidar/vacon_cx
 date-released: 2026-10-20
 authors:
   - family-names: Dewidar
     given-names: Mohamed Emad
-  - family-names: Ghofary
-    given-names: Essam Ashraf
-  - family-names: Ismaiel
-    given-names: Ahmed Ibrahem
 preferred-citation:
   type: conference-paper
   title: "Reverse Engineering a Proprietary Legacy Variable Frequency Drive Protocol for Open-Source IIoT Integration"
   authors:
     - family-names: Dewidar
       given-names: Mohamed Emad
-    - family-names: Ghofary
-      given-names: Essam Ashraf
-    - family-names: Ismaiel
-      given-names: Ahmed Ibrahem
   year: 2026
   conference:
     name: "10th International Undergraduate Research Conference (IUGRC)"
