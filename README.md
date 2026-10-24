@@ -121,7 +121,7 @@ The target device is the **VACON CXS4** three-phase frequency-converter family. 
 
 The exact unit designation and corresponding current/power rating should be taken from the supplied hardware listing or the nameplate; they must not be inferred from the family name alone. This project documents the Vacon CXS4 protocol/HMI work and preserves the telemetry offsets reported to work on the tested unit.
 
-- **Hardware listing supplied by the maintainer:** [Vacon CXS4 drive listing (eBay item 116898021384)](https://www.ebay.com/itm/116898021384)
+
 - **Manufacturer reference:** [VACON CX/CXL/CXS User’s Manual — technical data and CXS4 family ratings](https://assets.danfoss.com/documents/latest/273895/BC361183026650en-000101.pdf)
 
 ## Inferred frame format
