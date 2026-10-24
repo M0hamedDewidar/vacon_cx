@@ -114,10 +114,16 @@ def read_serial_loop():
                             state = 'WAIT_DLE'
                     elif state == 'WAIT_CHECKSUM':
                         received_cs = b
-                        if frame_data:
-                            expected_cs = sum(frame_data) % 256
-                            if received_cs == expected_cs:
-                                process_valid_frame(frame_data)
+                        expected_cs = sum(frame_data) % 256 if frame_data else None
+                        if expected_cs is not None and received_cs == expected_cs:
+                            process_valid_frame(frame_data)
+                        # A checksum byte of 0x10 is stuffed as 10 10 by the transmitter.
+                        if expected_cs == 0x10 and received_cs == 0x10:
+                            state = 'WAIT_CHECKSUM_ESCAPE'
+                        else:
+                            state = 'WAIT_DLE'
+                    elif state == 'WAIT_CHECKSUM_ESCAPE':
+                        # Consume the second byte of the stuffed checksum pair.
                         state = 'WAIT_DLE'
                 else:
                     time.sleep(0.01)

@@ -5,6 +5,7 @@ message: >-
   repository URL and paper URL once the official records are available.
 title: "Reverse Engineering a Proprietary Legacy Variable Frequency Drive Protocol for Open-Source IIoT Integration"
 version: 1.0.0
+repository-code: https://github.com/M0hamedDewidar/vacon_cx
 date-released: 2026-10-20
 authors:
   - family-names: Dewidar
