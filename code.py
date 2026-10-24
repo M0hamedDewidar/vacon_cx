@@ -6,14 +6,12 @@ import threading
 import time
 import datetime
 
-# ========== إعدادات عامة ==========
 ser = None
 connected = False
 current_seq_id = 0x80
 entered_speed = ""
 stop_heartbeat = threading.Event()
 
-# ========== دوال البروتوكول ==========
 def get_next_seq():
     global current_seq_id
     seq = current_seq_id
@@ -117,13 +115,11 @@ def read_serial_loop():
                         expected_cs = sum(frame_data) % 256 if frame_data else None
                         if expected_cs is not None and received_cs == expected_cs:
                             process_valid_frame(frame_data)
-                        # A checksum byte of 0x10 is stuffed as 10 10 by the transmitter.
                         if expected_cs == 0x10 and received_cs == 0x10:
                             state = 'WAIT_CHECKSUM_ESCAPE'
                         else:
                             state = 'WAIT_DLE'
                     elif state == 'WAIT_CHECKSUM_ESCAPE':
-                        # Consume the second byte of the stuffed checksum pair.
                         state = 'WAIT_DLE'
                 else:
                     time.sleep(0.01)
@@ -140,20 +136,17 @@ def process_valid_frame(data):
         func = data[1]
         
         if func == 0x1C and len(data) >= 34:
-            # التعديل هنا: قراءة السرعة من البايت 8 و 9 بناءً على تحليل الـ Sniffing
             freq_raw = (data[8] << 8) | data[9]
             if freq_raw > 32767: 
                 freq_raw -= 65536
             freq_hz = freq_raw / 100.0
             
-            # التعديل هنا: قراءة التيار من البايت 14 و 15
             current_raw = (data[14] << 8) | data[15]
             current_amps = current_raw / 10.0
             
             root.after(0, lambda: actual_speed_var.set(f"{freq_hz:.2f} Hz"))
             root.after(0, lambda: actual_current_var.set(f"{current_amps:.1f} A"))
 
-# ========== دوال الأوامر ==========
 def action_start():
     send_raw(build_custom_frame(get_next_seq(), 0x0D, [0x00, 0x34, 0x00, 0x01]))
 
