@@ -115,55 +115,14 @@ At startup, the application enumerates available serial ports. Select the intend
 
 When disconnected, the application prints `OFFLINE SIMULATION` messages for outgoing byte strings. This is local logging only; it does not simulate a VFD response and is not evidence of a successful communication exchange. The telemetry display is reset to zero on disconnect; those zeros are UI reset values, not new measurements.
 
-## Drive identification and nameplate specifications
+## Target hardware: Vacon CXS4
 
-Complete this section from the **actual VACON CX S4 unit used in the experiment**. Do not infer ratings from the family name or copy values from a different drive. Leave fields as `TBD` until checked against the nameplate or manufacturer documentation.
+The target device is the **VACON CXS4** three-phase frequency-converter family. The manufacturer’s technical table specifies a **380–440 V AC mains supply at 50/60 Hz**. Published ratings depend on the exact model and load class: the family covers **0.75–22 kW for constant-torque service** and **1.1–30 kW for variable-torque service**. These are family-wide ranges, not the rating of the individual test unit.
 
-### Identification
+The exact unit designation and corresponding current/power rating should be taken from the supplied hardware listing or the nameplate; they must not be inferred from the family name alone. This project documents the Vacon CXS4 protocol/HMI work and preserves the telemetry offsets reported to work on the tested unit.
 
-| Field | Value |
-|---|---|
-| Manufacturer | VACON |
-| Product family | CX S4 |
-| Full type designation / type code | TBD |
-| Product code / ordering code | TBD |
-| Serial number | TBD (publish only if appropriate) |
-| Hardware revision | TBD |
-| Firmware / software revision | TBD |
-| Manufacturing date | TBD |
-| Nameplate photograph | To be added |
-
-### Electrical and environmental ratings
-
-| Specification | Value from tested unit |
-|---|---|
-| Rated input voltage | TBD |
-| Input phases | TBD |
-| Input frequency | TBD |
-| Rated input current | TBD |
-| Rated output voltage | TBD |
-| Rated output current | TBD |
-| Rated motor power | TBD |
-| Output frequency range | TBD |
-| Enclosure / IP rating | TBD |
-| Cooling method | TBD |
-| Ambient temperature / derating notes | TBD |
-
-### Communication and test setup
-
-| Field | Recorded value |
-|---|---|
-| Physical interface and adapter | TBD; verify electrical standard and isolation |
-| Serial baud rate in this implementation | 9600 baud |
-| Data bits / parity / stop bits | Verify against the tested setup; code currently relies on pySerial defaults |
-| Connected motor make/model | TBD |
-| Motor rated voltage/current/power/frequency | TBD |
-| Drive parameter settings relevant to control | TBD |
-| Measurement instrument(s) and calibration | TBD |
-| Test date and operating conditions | TBD |
-| Actual test-bench photograph | To be added |
-
-*These are fill-in fields, not asserted specifications. Remove or redact serial numbers and other identifiers if disclosure is not authorized.*
+- **Hardware listing supplied by the maintainer:** [Vacon CXS4 drive listing (eBay item 116898021384)](https://www.ebay.com/itm/116898021384)
+- **Manufacturer reference:** [VACON CX/CXL/CXS User’s Manual — technical data and CXS4 family ratings](https://assets.danfoss.com/documents/latest/273895/BC361183026650en-000101.pdf)
 
 ## Inferred frame format
 
@@ -261,25 +220,12 @@ A paper statement or screenshot alone is not a replacement for the data needed t
 
 ## Citation
 
-Please cite the paper and software separately where appropriate. Use the final publication record (volume, pages, DOI or paper-specific proceedings URL) once confirmed.
+**Research paper:** [Add the paper’s official publication link here](PAPER_URL_TO_ADD).
 
-**Paper citation (based on the supplied manuscript):**
-
-> Mohamed Emad Dewidar, Essam Ashraf Ghofary, and Ahmed Ibrahem Ismaiel, “Reverse Engineering a Proprietary Legacy Variable Frequency Drive Protocol for Open-Source IIoT Integration,” 10th International Undergraduate Research Conference (IUGRC), Military Technical College, Cairo, Egypt, 2026.
-
-The accompanying `CITATION.cff` supplies repository-level metadata. Add the definitive repository URL and paper DOI/URL when available.
+**Software:** Mohamed Emad Dewidar, *Vacon CXS4 Protocol Reverse-Engineering HMI* [computer software]. GitHub repository: https://github.com/M0hamedDewidar/vacon_cx
 
 ## Copyright and permission
 
 **Copyright © 2026 Military Technical College (MTC). All rights reserved.** See [`LICENSE.md`](LICENSE.md) for the rights-reservation notice. This repository does not currently grant an open-source license. Do not assume that public availability authorizes reproduction, modification, redistribution, or incorporation into another project.
 
 The MTC ownership statement is included as requested by the project team; before public release, confirm through the appropriate institutional channel that the College is the lawful rights holder and has authorized publication of the source, protocol details, screenshots, and diagrams. If the ownership or release permissions differ, update the notice before publishing.
-
-## Release checklist
-
-- [ ] Replace the direct paper-link placeholder with the stable official paper URL or DOI.
-- [ ] Obtain written institutional authorization for public release and confirm the copyright holder.
-- [ ] Archive raw captures and document the independent measurement method for the telemetry offsets (the current code offsets are intentionally preserved).
-- [ ] Run parser regression tests, including stuffed-checksum reception and concurrent serial writes, before describing the program as robust.
-- [ ] Include the passive sniffer and machine-readable traces if they are approved for release.
-- [ ] Add an original, unmodified hardware test-bench photograph only if it accurately documents the actual setup and can be published.
